@@ -6,7 +6,7 @@ import { useState} from 'react'
 //import React from 'react'
 
 function App() {
-  const [showAddTask, setShowAddTask]
+  const [showAddTask, setShowAddTask] = useState(false)
   const [tasks, setTasks] = useState([
     {
         id: 1,
@@ -47,18 +47,14 @@ const toggleReminder = (id) =>{
 
   return (
     <div className='container'>
-      <Header/>
-      <AddTask onAdd={addTask}/>
+      <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}/>
+      {showAddTask &&
+      <AddTask onAdd={addTask}/>}
+      
       {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> 
       : 'No Tasks to Show'}
     </div>
   );
 }
-
-// class App extends React.Component{
-//   render(){
-//     return <h1>Hello from a class</h1>
-//   }
-// }
 
 export default App;
